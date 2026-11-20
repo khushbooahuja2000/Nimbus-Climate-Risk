@@ -6,104 +6,136 @@
 <title>Nimbus Cement: climate exposure, today and 2040</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#EDEFF1; --surface:#F8F9FA; --ink:#17212B; --ink-2:#4A5763; --rule:#CDD3D8;
-  --accent:#0E6F73; --accent-ink:#FFFFFF; --assume:#9A6A00;
-  --s0:#F2E8BC; --s1:#E8C463; --s2:#DE8A3A; --s3:#BF4430; --s4:#6B1424; --sea:#DCE6EC; --land:#F8F9FA; --sna:#D5D9DD;
-  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
-  --sans:"IBM Plex Sans", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  /* Oren design language: light, airy surfaces; deep navy type; teal-green highlights; rounded corners. */
+  --navy:#15305A; --teal:#147A70; --green:#12A26E; --mint:#E7F6F1; --cta:linear-gradient(90deg,#15305A,#146B68);
+  --bg:#F5F7FA; --surface:#FFFFFF; --panel:#F6F8FA; --ink:#142B4A; --ink-2:#5D6D82; --rule:#E3E8EE;
+  --accent:#147A70; --accent-soft:#E7F6F1; --accent-ink:#FFFFFF; --assume:#A86A00;
+  --s0:#EEE7CF; --s1:#E2CB8D; --s2:#DBA36F; --s3:#C97A66; --s4:#985060; --sea:#E6F1F2; --land:#FFFFFF; --sna:#D8DEE5;
+  --shadow:0 1px 2px rgba(21,48,90,.05), 0 8px 24px rgba(21,48,90,.06);
+  --r-card:20px; --r-panel:14px;
+  --serif:"Plus Jakarta Sans", "Lato", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --sans:"Lato", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   color-scheme: light;
   box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
-@media (prefers-color-scheme: dark){
-  :root{ --bg:#12181E; --surface:#1A222A; --ink:#E6EAED; --ink-2:#A3AEB8; --rule:#2E3943;
-    --accent:#4FB3B5; --accent-ink:#0B1216; --assume:#E2B347;
-    --s0:#F2E8BC; --s1:#E8C463; --s2:#DE8A3A; --s3:#D9533D; --s4:#9E2236; --sea:#121A22; --land:#25303A; --sna:#3A4550; color-scheme: dark; }
-}
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{overflow-x:hidden;margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.55 var(--sans);font-variant-numeric:tabular-nums}
+body{overflow-x:hidden;margin:0;background:var(--bg);color:var(--ink);font:400 15.5px/1.6 var(--sans);font-variant-numeric:tabular-nums}
 a{color:var(--accent)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 button,input,select{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
 
-header.top{padding:28px 0 8px;display:flex;justify-content:space-between;gap:24px;align-items:baseline;flex-wrap:wrap}
-.brand{font:600 15px var(--sans)}
-.brand small{display:block;font-weight:400;color:var(--ink-2)}
+.hero{background:radial-gradient(900px 380px at 88% 0%, #DDF1EE 0%, transparent 65%), linear-gradient(180deg,#FFFFFF 0%, var(--bg) 100%);padding-bottom:40px}
+header.top{padding:22px 0 18px;display:flex;justify-content:space-between;gap:24px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--rule)}
+.brand{display:flex;gap:12px;align-items:center;font:700 16px var(--serif);color:var(--navy);letter-spacing:-.01em}
+.brand .mark{display:none}
+.brand small{display:block;font:400 13px var(--sans);color:var(--ink-2);letter-spacing:0}
 .prep{color:var(--ink-2);font-size:13px;text-align:right}
-
-.question{padding:28px 0 8px;border-bottom:1px solid var(--rule)}
-.question h1{font:400 clamp(28px,4vw,44px)/1.15 var(--serif);margin:0 0 10px;max-width:26ch;letter-spacing:-.01em}
-.question p{color:var(--ink-2);max-width:68ch;margin:0 0 24px}
-.answers{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:0 0 4px}
-.answer{display:block;color:inherit;text-decoration:none;padding:18px 22px 20px;border-top:3px solid var(--ink);background:var(--surface);border-radius:0 0 4px 4px}
+.question{padding:64px 0 0}
+.question h1{font:800 clamp(34px,4.6vw,56px)/1.08 var(--serif);margin:0 0 16px;max-width:22ch;letter-spacing:-.03em;color:var(--navy)}
+.question p{color:var(--ink-2);max-width:60ch;margin:0;font-size:18px;line-height:1.6}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:8px 0 4px}
+.answer{display:block;color:inherit;text-decoration:none;padding:28px 30px;background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card);box-shadow:var(--shadow);transition:transform .2s ease, box-shadow .2s ease}
+.answer:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(21,48,90,.06), 0 14px 32px rgba(21,48,90,.09)}
 .answer:hover .go{text-decoration:underline}
-.answer .kind{display:block;font-size:13px;font-weight:500;color:var(--accent);margin-bottom:10px}
-.answer p.also{margin-top:10px;padding-top:10px;border-top:1px solid var(--rule)}
-.answer .go{display:inline-block;margin-top:12px;font-size:13.5px;font-weight:500;color:var(--accent)}
-.answer .fig{font:600 34px/1.1 var(--serif)}
-.answer .fig span{font-size:18px;font-weight:400}
-.answer h2{font:600 15px var(--sans);margin:6px 0 4px}
-.answer p{margin:0;color:var(--ink-2);font-size:14px;max-width:58ch}
-.answer .src{display:block;margin-top:8px}
-.answer .src .badge{font-size:11px}
+.answer .kind{display:inline-block;font:700 12.5px var(--sans);color:var(--teal);background:var(--mint);border:1px solid #CBEBDF;padding:5px 12px;border-radius:999px;margin-bottom:18px}
+.answer p.also{margin-top:16px;padding-top:16px;border-top:1px solid var(--rule)}
+.answer .go{display:inline-flex;align-items:center;gap:6px;margin-top:20px;font:700 14px var(--sans);color:#fff;background:var(--cta);padding:10px 18px;border-radius:999px;text-decoration:none}
+.answer .go::after{content:"↗";font-size:13px}
+.answer:hover .go{text-decoration:none;filter:brightness(1.08)}
+.answer .fig{font:800 42px/1.1 var(--serif);letter-spacing:-.03em;color:var(--navy)}
+.answer .fig span{font:400 17px var(--sans);color:var(--ink-2);letter-spacing:0}
+.answer h2{font:700 16px var(--sans);margin:8px 0 8px;color:var(--ink)}
+.answer p{margin:0;color:var(--ink-2);font-size:14.5px;max-width:58ch}
+.answer .src{display:block;margin-top:12px}
+.answer .src .badge{font-size:11.5px}
 
-nav.tabs{display:flex;gap:4px;margin:28px 0 0;border-bottom:1px solid var(--rule);overflow-x:auto}
-nav.tabs a{padding:10px 14px;text-decoration:none;color:var(--ink-2);font-weight:500;border-bottom:3px solid transparent;white-space:nowrap}
-nav.tabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent)}
-section.view{display:none;padding:28px 0 64px}
+nav.tabs{display:inline-flex;gap:4px;margin:48px 0 0;padding:5px;background:#EDF1F5;border-radius:14px;overflow-x:auto;max-width:100%}
+nav.tabs a{padding:10px 18px;text-decoration:none;color:var(--ink-2);font-weight:700;font-size:14.5px;border-radius:10px;white-space:nowrap;transition:background-color .15s ease,color .15s ease,box-shadow .15s ease}
+nav.tabs a:hover{color:var(--navy)}
+nav.tabs a[aria-current="page"]{color:var(--navy);background:#FFFFFF;box-shadow:0 1px 3px rgba(21,48,90,.12)}
+section.view{display:none;padding:40px 0 72px}
 section.view.on{display:block}
-h3{font:600 22px/1.25 var(--serif);margin:0 0 6px}
+h3{font:700 24px/1.25 var(--serif);letter-spacing:-.02em;margin:0 0 8px;color:var(--navy)}
 .lede{color:var(--ink-2);margin:0 0 20px;max-width:72ch}
 
 /* overview */
 .ov{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:32px;align-items:start}
 .ov>div,.cgrid>div,.mgrid>div,.ind>div{min-width:0}
-.tblsec{margin-top:36px}
+.block{margin:0 0 64px}
+.headrow{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.headrow h3{margin:0}
+.headrow .controls{margin:0}
+.rank{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.rk{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:10px;padding:16px 18px;background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-panel);transition:border-color .15s ease, box-shadow .15s ease}
+.rk:hover{border-color:#BFD9D3}
+.rk:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.rk.on{border-color:var(--teal);box-shadow:0 0 0 3px var(--mint)}
+.rk-name{font:700 15px var(--serif);color:var(--navy);display:flex;justify-content:space-between;gap:8px;align-items:center}
+.rk-row{display:grid;grid-template-columns:44px 1fr 44px;gap:10px;align-items:center;font-size:13px;color:var(--ink-2)}
+.rk-row .bar b{background:#9CCFC4}
+.rk-row .bar b.f{background:var(--teal)}
+.rk-v{text-align:right;font-weight:700;color:var(--ink)}
+.tag{font:700 11px var(--sans);color:var(--assume);background:#FBF3E2;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.next{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.step{display:flex;flex-direction:column;gap:10px;padding:26px 26px 24px;background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card);box-shadow:var(--shadow)}
+.step .kind{align-self:flex-start;font:700 12px var(--sans);color:var(--teal);background:var(--mint);padding:4px 10px;border-radius:999px}
+.step h4{font:700 18px/1.3 var(--serif);letter-spacing:-.01em;color:var(--navy);margin:4px 0 0}
+.step p{margin:0;color:var(--ink-2);font-size:14.5px}
+.step .amt{margin-top:auto;padding-top:14px;border-top:1px solid var(--rule);font:700 15px var(--sans);color:var(--ink)}
+.step .amt span{font-weight:400;color:var(--ink-2)}
+@media (max-width:880px){.next{grid-template-columns:1fr}}
+details.more{margin-top:28px;border-top:1px solid var(--rule);padding-top:18px}
+details.more summary{cursor:pointer;font:700 15px var(--sans);color:var(--teal);list-style:none;display:inline-flex;gap:8px;align-items:center}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::before{content:"+";display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--mint)}
+details.more[open] summary::before{content:"–"}
+.mainrisk{display:inline-flex;gap:8px;align-items:center}
 td:first-child{min-width:170px}
-.expo{background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:18px 20px}
-.expo .fig{font:600 40px/1.1 var(--serif)}
+.expo{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card);padding:26px 28px;box-shadow:var(--shadow)}
+.expo .fig{font:800 40px/1.1 var(--serif);letter-spacing:-.03em;color:var(--navy)}
 .expo .fig span{font-size:18px;font-weight:400;color:var(--ink-2)}
 .expo ul{list-style:none;padding:0;margin:14px 0 0}
 .expo li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--rule);font-size:14px}
 .expo .k{color:var(--ink-2);font-size:13px;margin-top:10px}
-.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
-.seg{display:inline-flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden}
-.seg button{border:0;background:transparent;padding:6px 12px;cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.seg{display:inline-flex;padding:4px;gap:2px;border-radius:12px;background:#EDF1F5}
+.seg button{border:0;background:transparent;padding:7px 14px;cursor:pointer;border-radius:9px;font-weight:700;color:var(--ink-2)}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--navy);box-shadow:0 1px 3px rgba(21,48,90,.12)}
 .seg button:disabled{opacity:.4;cursor:not-allowed}
-select{border:1px solid var(--rule);border-radius:6px;padding:6px 8px;background:var(--surface)}
-.mapbox{background:var(--sea);border:1px solid var(--rule);border-radius:4px;overflow:hidden}
+select{border:1px solid var(--rule);border-radius:12px;min-height:40px;padding:6px 8px;background:var(--surface)}
+.mapbox{background:var(--sea);border:1px solid var(--rule);border-radius:var(--r-card);overflow:hidden;box-shadow:var(--shadow)}
 svg.map{width:100%;height:auto;display:block}
 .map .grat{stroke:var(--rule);stroke-width:.6;opacity:.6}
 .map .sea-bg{fill:var(--sea)}
 .map .land{fill:var(--land);stroke:color-mix(in srgb,var(--ink) 30%,transparent);stroke-width:.8}
 .map .gl{fill:var(--ink-2);font-size:11px}
-.map .sea{fill:var(--ink-2);font:italic 13px var(--serif);opacity:.8}
-.map .flow{fill:none;stroke:var(--ink);stroke-opacity:.55}
+.map .sea{fill:#6E8AA0;font:italic 400 13px var(--sans)}
+.map .flow{fill:none;stroke:var(--navy);stroke-opacity:.5}
 .map .pt{stroke:var(--land);stroke-width:2;cursor:pointer}
 .map .pt:hover,.map .pt.sel{stroke:var(--ink);stroke-width:2.5}
-.map .lbl{fill:var(--ink);font-size:13px;font-weight:500;pointer-events:none;paint-order:stroke;stroke:var(--land);stroke-width:3px}
+.map .lbl{fill:var(--ink);font-size:13px;font-weight:400;pointer-events:none;paint-order:stroke;stroke:var(--land);stroke-width:3px}
 .map .grinder{stroke-dasharray:3 2}
 .legend{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--ink-2);margin:10px 4px 2px}
-.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:4px;vertical-align:-2px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:4px;vertical-align:-2px}
 .note{font-size:12.5px;color:var(--ink-2);margin:8px 4px 0;max-width:70ch}
 
-.tablewrap{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface)}
+.tablewrap{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--r-card);background:var(--surface);box-shadow:var(--shadow)}
 table{border-collapse:collapse;width:100%;font-size:14px}
-th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}
-th{font-weight:500;color:var(--ink-2);font-size:12.5px;background:var(--surface);position:sticky;top:0}
+th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-weight:700;color:var(--ink-2);font-size:13px;background:var(--surface);position:sticky;top:0}
 td.num,th.num{text-align:right}
 tbody tr{cursor:pointer}
 table.static tbody tr{cursor:default}
 table.static tbody tr:hover{background:transparent}
-tbody tr:hover{background:color-mix(in srgb,var(--accent) 7%,transparent)}
-tbody tr.sel{background:color-mix(in srgb,var(--accent) 12%,transparent)}
-.pname{font-weight:500}
+tbody tr:hover{background:#F3FAF8}
+tbody tr.sel{background:var(--mint)}
+.pname{font-weight:700;color:var(--ink)}
 .sub{display:block;color:var(--ink-2);font-size:12px}
 .chip{display:inline-block;padding:1px 7px;border-radius:3px;font-size:12px;white-space:nowrap;color:#17212B}
 .c0{background:var(--s0)}.c1{background:var(--s1)}
@@ -112,7 +144,7 @@ tbody tr.sel{background:color-mix(in srgb,var(--accent) 12%,transparent)}
 .dots{white-space:nowrap}
 .tlegend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-2);margin:0 0 10px}
 .tlegend .dot{width:12px;height:12px;margin-right:5px;vertical-align:-2px}
-.caution{display:block;color:var(--assume);font-size:12.5px;margin-top:4px}.c2{background:var(--s2)}.c3{background:var(--s3);color:#fff}.c4{background:var(--s4);color:#fff}.cna{background:var(--sna);color:var(--ink-2)}
+.caution{display:block;color:var(--assume);font-size:12.5px;margin-top:4px}.c2{background:var(--s2)}.c3{background:var(--s3);color:#2A1714}.c4{background:var(--s4);color:#fff}.cna{background:var(--sna);color:var(--ink-2)}
 .arrow{color:var(--ink-2);margin:0 3px}
 
 /* data-type badges */
@@ -124,12 +156,12 @@ tbody tr.sel{background:color-mix(in srgb,var(--accent) 12%,transparent)}
 .b-pending::before{background:var(--sna)}
 
 /* physical */
-.ind{border-top:1px solid var(--rule);padding:22px 0;display:grid;grid-template-columns:260px 1fr;gap:28px}
-.ind h4{font:600 16px var(--sans);margin:0 0 4px}
+.ind{border-top:1px solid var(--rule);padding:32px 0;display:grid;grid-template-columns:260px 1fr;gap:28px}
+.ind h4{font:700 17px var(--serif);letter-spacing:-.01em;color:var(--navy);margin:0 0 6px}
 .ind p{margin:0 0 8px;color:var(--ink-2);font-size:13.5px}
 .bars{display:grid;grid-template-columns:110px 1fr 120px;gap:6px 12px;align-items:center;font-size:13.5px}
-.bar{height:10px;background:var(--rule);border-radius:2px;position:relative}
-.bar b{position:absolute;left:0;top:0;bottom:0;border-radius:2px}
+.bar{height:10px;background:#E9EEF3;border-radius:999px;position:relative}
+.bar b{position:absolute;left:0;top:0;bottom:0;border-radius:999px}
 .bar s{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
 .dgrid{display:grid;gap:8px 18px;align-items:center;font-size:13.5px}
 .dgrid.three{grid-template-columns:110px 56px 56px 56px 1fr}
@@ -137,18 +169,18 @@ tbody tr.sel{background:color-mix(in srgb,var(--accent) 12%,transparent)}
 .dgrid .colh{font-size:12px;color:var(--ink-2)}
 .levels{display:flex;gap:4px 14px;flex-wrap:wrap;align-items:center;font-size:12.5px;color:var(--ink-2);margin-bottom:12px}
 .levels .dot{width:11px;height:11px;margin-right:4px;vertical-align:-1px}
-.pending{color:var(--ink-2);font-size:13.5px;border:1px dashed var(--rule);padding:12px 14px;border-radius:4px}
+.pending{color:var(--ink-2);font-size:13.5px;border:1px dashed var(--rule);padding:12px 14px;border-radius:var(--r-panel)}
 
 /* carbon */
 .cgrid{display:grid;grid-template-columns:340px 1fr;gap:32px}
-.panel{background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:18px}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card);padding:26px;box-shadow:var(--shadow)}
 .ctrl{margin-bottom:18px}
-.ctrl label{display:flex;justify-content:space-between;font-weight:500;font-size:14px}
+.ctrl label{display:flex;justify-content:space-between;font-weight:400;font-size:14px}
 .ctrl label output{font-weight:600}
-.ctrl input[type=range]{width:100%;accent-color:var(--accent);margin:6px 0 2px}
+.ctrl input[type=range]{width:100%;accent-color:var(--teal);margin:6px 0 2px}
 .ctrl small{display:block;color:var(--ink-2);font-size:12px}
 .result{padding:4px 0 18px;border-bottom:1px solid var(--rule);margin-bottom:18px}
-.result .fig{font:600 40px/1.1 var(--serif)}
+.result .fig{font:800 42px/1.1 var(--serif);letter-spacing:-.03em;color:var(--navy)}
 .result .fig span{font-size:18px;font-weight:400;color:var(--ink-2)}
 .result p{margin:4px 0 0;color:var(--ink-2);max-width:62ch;font-size:14px}
 .pbars{display:grid;grid-template-columns:120px 1fr 90px;gap:6px 12px;align-items:center;font-size:13.5px;margin-top:10px}
@@ -163,18 +195,18 @@ tbody tr.sel{background:color-mix(in srgb,var(--accent) 12%,transparent)}
   box-shadow:-12px 0 32px rgba(0,0,0,.12);transform:translateX(100%);transition:transform .22s ease,visibility .22s;overflow-y:auto;z-index:20;
   padding:calc(20px + env(safe-area-inset-top,0px)) 24px calc(32px + env(safe-area-inset-bottom,0px))}
 .drawer.open{transform:none;visibility:visible}
-.drawer .close{float:right;border:1px solid var(--rule);background:transparent;border-radius:6px;padding:4px 10px;cursor:pointer}
+.drawer .close{float:right;border:1px solid var(--rule);background:#fff;border-radius:999px;padding:4px 10px;cursor:pointer}
 .drawer h3{margin-top:4px}
 .facts{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin:16px 0 20px;font-size:14px}
-.facts dt{color:var(--ink-2);font-size:12px}.facts dd{margin:0;font-weight:500}
+.facts dt{color:var(--ink-2);font-size:12px}.facts dd{margin:0;font-weight:400}
 .drow{border-top:1px solid var(--rule);padding:12px 0}
-.drow .t{display:flex;justify-content:space-between;gap:12px;font-weight:500}
+.drow .t{display:flex;justify-content:space-between;gap:12px;font-weight:400}
 .drow .m{font-size:12.5px;color:var(--ink-2);margin-top:4px}
-.dep{background:color-mix(in srgb,var(--accent) 9%,transparent);padding:12px 14px;border-radius:4px;font-size:14px;margin-bottom:8px}
+.dep{background:var(--mint);padding:12px 14px;border-radius:var(--r-panel);font-size:14px;margin-bottom:8px}
 @media (prefers-reduced-motion: reduce){.drawer{transition:none}}
 
-.readkey{display:grid;grid-template-columns:1.1fr 1fr 1.4fr;gap:14px 24px;align-items:start;margin:40px 0 0;padding:14px 18px;background:var(--surface);border:1px solid var(--rule);border-radius:4px;font-size:13px;color:var(--ink-2)}
-.readkey strong{display:block;color:var(--ink);font-weight:500;margin-bottom:4px}
+.readkey{display:grid;grid-template-columns:1.1fr 1fr 1.4fr;gap:14px 28px;align-items:start;margin:48px 0 0;padding:20px 24px;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r-panel);font-size:13px;color:var(--ink-2)}
+.readkey strong{display:block;color:var(--ink);font-weight:400;margin-bottom:4px}
 .readkey .dot{width:12px;height:12px;vertical-align:-2px;margin-right:2px}
 .readkey .row{display:flex;gap:10px;flex-wrap:wrap}
 .readkey .foot{grid-column:1/-1;border-top:1px solid var(--rule);padding-top:10px}
@@ -182,93 +214,116 @@ tbody tr.sel{background:color-mix(in srgb,var(--accent) 12%,transparent)}
 .b-assumption{cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
 .readkey.one{grid-template-columns:1fr 1.6fr}
 @media (max-width:880px){.readkey,.readkey.one{grid-template-columns:1fr}}
-footer{border-top:1px solid var(--rule);padding:18px 0 40px;color:var(--ink-2);font-size:12.5px}
+footer{margin-top:24px;border-top:1px solid var(--rule);padding:18px 0 40px;color:var(--ink-2);font-size:12.5px}
 
 @media (max-width:880px){
   .answers{grid-template-columns:1fr}
+  .question{padding-top:40px}
   .ov,.cgrid,.mgrid,.ind{grid-template-columns:1fr}
   .prep{text-align:left}
 }
+
+/* Supporting, contextual text: one step lighter than before */
+.lede,.note,.sub,.question p,.answer p,.expo .k,.step p,.result p,.ind p,.ctrl small,.legend,.tlegend,.levels,
+.readkey,.prep,.brand small,.mgrid li,.dep,.drow .m,.rk-row,.answer .fig span,.expo .fig span,.result .fig span,
+.step .amt span,.caution,footer,.facts dt{font-weight:300}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="hero"><div class="wrap">
   <header class="top">
-    <div class="brand">Nimbus Cement Ltd<small>Climate exposure, version 1 prototype</small></div>
+    <div class="brand"><span class="mark" aria-hidden="true"></span><span>Nimbus Cement Ltd<small>Climate exposure, version 1 prototype</small></span></div>
     <div class="prep">Prepared for Meera Iyer, Head of Sustainability<br><span id="asof"></span></div>
   </header>
 
   <section class="question">
-    <h1>What is Nimbus Cement’s business exposure to climate events today and by 2040?</h1>
-    <p>A plant-by-plant view of Nimbus Cement’s nine sites: the climate hazards they face now and around 2040, and what India’s carbon rules could cost.</p>
-    <div class="answers" id="answers"></div>
+    <h1>Climate risk exposure</h1>
+    <p>How Nimbus Cement’s nine plants are exposed to climate hazards and carbon rules, today and around 2040.</p>
   </section>
+</div></div>
+<div class="wrap">
+  <div class="answers" id="answers"></div>
 
   <nav class="tabs" aria-label="Sections">
     <a href="#overview">Overview</a>
     <a href="#physical">Physical risk</a>
     <a href="#carbon">Transition risk</a>
-    <a href="#methods">Sources and assumptions</a>
+    <a href="#methods">Sources</a>
   </nav>
 
   <!-- OVERVIEW -->
   <section class="view" id="v-overview">
-    <div class="controls">
-      <label for="hz" class="sr">Hazard</label>
-      <select id="hz"></select>
-      <div class="seg" role="group" aria-label="Period">
-        <button type="button" data-p="today" aria-pressed="true">Today</button>
-        <button type="button" data-p="2040" aria-pressed="false">Around 2040</button>
-      </div>
+    <div class="block">
+      <h3>Which risks matter most</h3>
+      <p class="lede">Share of revenue at plants rated high or extremely high. Select a risk to see it on the map.</p>
+      <div class="rank" id="rank"></div>
     </div>
-    <div class="ov">
-      <div>
-        <div class="mapbox"><svg class="map" id="map" viewBox="0 0 540 515" role="img" aria-label="Schematic map of Nimbus plants and clinker flows"></svg></div>
-        <div class="legend" id="legend"></div>
-        <p class="note">Plants are placed by their real coordinates on a land outline from Natural Earth. Country and state borders are deliberately not drawn. Circle size shows revenue; dashed circles are grinding units. Lines show clinker shipped by rail.</p>
+
+    <div class="block">
+      <div class="headrow">
+        <h3>Where they are</h3>
+        <div class="controls">
+          <label for="hz" class="sr">Risk</label>
+          <select id="hz"></select>
+          <div class="seg" role="group" aria-label="Period">
+            <button type="button" data-p="today" aria-pressed="true">Today</button>
+            <button type="button" data-p="2040" aria-pressed="false">Around 2040</button>
+          </div>
+        </div>
       </div>
-      <div>
-        <div class="expo" id="expo"></div>
-        <p class="note" id="hznote"></p>
+      <div class="ov">
+        <div>
+          <div class="mapbox"><svg class="map" id="map" viewBox="0 0 540 515" role="img" aria-label="Map of Nimbus plants and clinker flows"></svg></div>
+          <div class="legend" id="legend"></div>
+        </div>
+        <div><div class="expo" id="expo"></div></div>
       </div>
+      <p class="note">Plants at their real locations. Circle size shows revenue; dashed circles are grinding units; lines show clinker moving between plants.</p>
     </div>
-    <div class="tblsec">
-      <h3>Plant by plant</h3>
-      <p class="lede">Each circle is a risk level; darker means higher. Hover over a circle for its value, or click a plant for its full record.</p>
-      <div class="tlegend"><span><span class="dot" style="background:var(--s0)"></span>Low</span><span><span class="dot" style="background:var(--s1)"></span>Low-medium</span><span><span class="dot" style="background:var(--s2)"></span>Medium-high</span><span><span class="dot" style="background:var(--s3)"></span>High</span><span><span class="dot" style="background:var(--s4)"></span>Extremely high</span><span><span class="dot na"></span>Not available</span></div>
+
+    <div class="block">
+      <h3>Which plants need attention</h3>
+      <p class="lede">Ranked by the number of high risks. Click a plant for its full record.</p>
       <div class="tablewrap"><table id="tbl"></table></div>
     </div>
-  
+
+    <div class="block">
+      <h3>Suggested next steps</h3>
+      <p class="lede">The three areas the data points to first.</p>
+      <div class="next" id="next"></div>
+    </div>
+
     <div class="readkey" aria-label="How to read this page">
       <div><strong>Risk level</strong><span class="row"><span><span class="dot" style="background:var(--s0)"></span>Low</span><span><span class="dot" style="background:var(--s1)"></span>Low-medium</span><span><span class="dot" style="background:var(--s2)"></span>Medium-high</span><span><span class="dot" style="background:var(--s3)"></span>High</span><span><span class="dot" style="background:var(--s4)"></span>Extremely high</span><span><span class="dot na"></span>Not available</span></span></div>
-      <div><strong>Where each number comes from</strong><span class="row"><span class="badge b-real">Real data</span><span class="badge b-derived">Calculated</span><span class="badge b-assumption">Assumption</span></span></div>
-      <div><strong>Time periods</strong>Today: 1995–2014 climate and latest data. Around 2040: 2030–2049 (water stress: 2030 and 2050).</div>
-      <div class="foot">* Click any assumption label, or open <a href="#methods">Sources and assumptions</a>, for every source, assumption and limit behind these figures.</div>
+      <div><strong>Where numbers come from</strong><span class="row"><span class="badge b-real">Real data</span><span class="badge b-derived">Calculated</span><span class="badge b-assumption">Assumption</span></span></div>
+      <div><strong>Time periods</strong>Today: 1995–2014 climate and latest data. Around 2040: 2030–2049.</div>
+      <div class="foot">* Click any assumption label, or open <a href="#methods">Sources</a>, for the full list of sources and assumptions.</div>
     </div>
   </section>
 
   <!-- PHYSICAL -->
   <section class="view" id="v-physical">
-    <h3>Physical risk: harm from the climate itself</h3>
-    <p class="lede">Each measure compares today (1995–2014) with around 2040 (2030–2049). Climate-model figures are the middle value across models, with their range of change underneath; the thin line marks today.</p>
-    <p class="lede" style="margin-bottom:6px">Colours show how severe a risk is, the same on every page. Each measure lists the values behind its colours.</p>
+    <h3>Physical risk</h3>
+    <p class="lede">Each plant’s risk level today and around 2040. Hover over a circle for its value; click a plant for its full record.</p>
     <div class="tlegend"><span><span class="dot" style="background:var(--s0)"></span>Low</span><span><span class="dot" style="background:var(--s1)"></span>Low-medium</span><span><span class="dot" style="background:var(--s2)"></span>Medium-high</span><span><span class="dot" style="background:var(--s3)"></span>High</span><span><span class="dot" style="background:var(--s4)"></span>Extremely high</span><span><span class="dot na"></span>Not available</span></div>
-    <div id="inds"></div>
+    <div class="tablewrap"><table id="pmatrix"></table></div>
+    <details class="more"><summary>Details for each risk</summary>
+      <p class="lede" style="margin-top:16px">Climate figures are the middle value across models, with their range of change underneath. The thin line marks today.</p>
+      <div id="inds"></div>
+    </details>
   
     <div class="readkey" aria-label="How to read this page">
       <div><strong>Risk level</strong><span class="row"><span><span class="dot" style="background:var(--s0)"></span>Low</span><span><span class="dot" style="background:var(--s1)"></span>Low-medium</span><span><span class="dot" style="background:var(--s2)"></span>Medium-high</span><span><span class="dot" style="background:var(--s3)"></span>High</span><span><span class="dot" style="background:var(--s4)"></span>Extremely high</span><span><span class="dot na"></span>Not available</span></span></div>
       <div><strong>Where each number comes from</strong><span class="row"><span class="badge b-real">Real data</span><span class="badge b-derived">Calculated</span><span class="badge b-assumption">Assumption</span></span></div>
       <div><strong>Time periods</strong>Today: 1995–2014 climate and latest data. Around 2040: 2030–2049 (water stress: 2030 and 2050).</div>
-      <div class="foot">* Click any assumption label, or open <a href="#methods">Sources and assumptions</a>, for every source, assumption and limit behind these figures.</div>
+      <div class="foot">* Click any assumption label, or open <a href="#methods">Sources</a>, for the full list of sources and assumptions.</div>
     </div>
   </section>
 
   <!-- CARBON -->
   <section class="view" id="v-carbon">
-    <h3>Transition risk: the cost of the shift to a low-carbon economy</h3>
-    <p class="lede">Version 1 measures the biggest and most certain transition risk for a cement maker: the cost of India’s carbon rules. Other transition risks are listed at the bottom of this page as a watch list.</p>
-    <h4 style="margin:24px 0 4px;font-weight:600;font-size:17px">Carbon rules: measured</h4>
-    <p class="lede">India’s Carbon Credit Trading Scheme sets each cement plant a CO₂-per-tonne target against an FY2023-24 baseline. Plants that miss it must buy carbon credit certificates. No certificate has traded yet, so every price here is an assumption you can change.</p>
+    <h3>Transition risk</h3>
+    <p class="lede">What India’s carbon rules could cost. Each plant must cut CO₂ per tonne against an FY2023-24 baseline or buy certificates. None has traded yet, so prices are assumptions you can change.</p>
     <div class="cgrid">
       <div class="panel">
         <div class="ctrl"><label for="r">Required cut from baseline <output id="ro"></output></label>
@@ -292,8 +347,8 @@ footer{border-top:1px solid var(--rule);padding:18px 0 40px;color:var(--ink-2);f
         <div class="pbars" id="intens"></div>
       </div>
     </div>
-    <h4 style="margin:40px 0 4px;font-weight:600;font-size:17px">Other transition risks: watch list, not measured in version 1</h4>
-    <p class="lede">These matter, but measuring them needs data that is not in the plant file or in open sources. Each row names what would be needed.</p>
+    <details class="more"><summary>Other transition risks to watch (not measured yet)</summary>
+    <p class="lede" style="margin-top:16px">Measuring these needs data that is not in the plant file or open sources.</p>
     <div class="tablewrap"><table class="static">
       <thead><tr><th>Risk</th><th>Why it matters for Nimbus</th><th>Plants to watch</th><th>Needed to measure it</th></tr></thead>
       <tbody>
@@ -302,11 +357,12 @@ footer{border-top:1px solid var(--rule);padding:18px 0 40px;color:var(--ink-2);f
         <tr><td><span class="pname">Cost of cleaner technology</span></td><td>Meeting tighter targets needs spending on waste-heat recovery, alternative fuels, renewable power and, later, carbon capture.</td><td>Ariyalur (oldest kiln, 1998), Chittorgarh (captive coal power plant). Chandrapur already has waste-heat recovery.</td><td>Engineering cost estimates per plant</td></tr>
         <tr><td><span class="pname">Demand for low-carbon cement</span></td><td>Large buyers and public projects may prefer or require lower-carbon cement.</td><td>All plants</td><td>Customer and procurement data</td></tr>
       </tbody></table></div>
+    </details>
   
     <div class="readkey one" aria-label="How to read this page">
       <div><strong>Where each number comes from</strong><span class="row"><span class="badge b-real">Real data</span><span class="badge b-derived">Calculated</span><span class="badge b-assumption">Assumption</span></span></div>
       <div><strong>Time periods</strong>Today: FY2025-26 plant data, measured against the scheme’s FY2023-24 baseline. 2040: a stress test using your assumptions.</div>
-      <div class="foot">* Click any assumption label, or open <a href="#methods">Sources and assumptions</a>, for every source, assumption and limit behind these figures.</div>
+      <div class="foot">* Click any assumption label, or open <a href="#methods">Sources</a>, for the full list of sources and assumptions.</div>
     </div>
   </section>
 
@@ -333,7 +389,7 @@ footer{border-top:1px solid var(--rule);padding:18px 0 40px;color:var(--ink-2);f
     </div>
   </section>
 
-  <footer>Prototype. Plant figures are as supplied in the brief. Climate data and carbon rules are real; carbon prices and targets are labelled assumptions. <a href="#methods">Sources and assumptions</a></footer>
+  <footer>Prototype. Plant figures are as supplied in the brief. Climate data and carbon rules are real; carbon prices and targets are labelled assumptions. <a href="#methods">Sources</a></footer>
 </div>
 
 <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Plant detail"></aside>
@@ -359,22 +415,22 @@ document.getElementById("asof").textContent =
 function water2040(p){ const a=p.water?.bau2030, b=p.water?.bau2050; if(!a&&!b) return null;
   return {cat: Math.max(a?.cat??-1, b?.cat??-1), text: a&&b&&a.cat!==b.cat ? `${CAT5[a.cat]} → ${CAT5[b.cat]}` : CAT5[(b||a).cat]}; }
 const HAZ = [
- {k:"water", name:"Water stress", src:"real", srcName:"WRI Aqueduct 4.0",
+ {k:"water", short:"Water stress", name:"Water stress", src:"real", srcName:"WRI Aqueduct 4.0",
   today:p=>({cat:p.water?.today?.cat, text:CAT5[p.water?.today?.cat]}), y2040:water2040,
   legend:CAT5, note:"Share of the local renewable water supply already used. Around 2040 shows the 2030 and 2050 projections under business as usual; Aqueduct has no 2040 value. Today’s figure comes from a different model run, so compare 2030 with 2050 rather than with today."},
- {k:"river", name:"River flood risk (area)", src:"real", srcName:"WRI Aqueduct 4.0", today:p=>({cat:p.flood_area?.river?.cat, text:CAT5[p.flood_area?.river?.cat]}), y2040:null,
+ {k:"river", short:"River flooding", name:"River flood risk (area)", src:"real", srcName:"WRI Aqueduct 4.0", today:p=>({cat:p.flood_area?.river?.cat, text:CAT5[p.flood_area?.river?.cat]}), y2040:null,
   legend:CAT5, note:"Share of people in the surrounding area expected to be affected by river floods each year. An area-level signal, not flood depth at the plant."},
- {k:"coast", name:"Coastal flood risk (area)", src:"real", srcName:"WRI Aqueduct 4.0", today:p=>({cat:p.flood_area?.coastal?.cat, text:CAT5[p.flood_area?.coastal?.cat]}), y2040:null,
+ {k:"coast", short:"Coastal flooding", name:"Coastal flood risk (area)", src:"real", srcName:"WRI Aqueduct 4.0", today:p=>({cat:p.flood_area?.coastal?.cat, text:CAT5[p.flood_area?.coastal?.cat]}), y2040:null,
   legend:CAT5, note:"Share of people in the surrounding area expected to be affected by coastal floods. Matters for Mundra and Paradip."},
- {k:"heat", name:"Days above 40°C", src:"real", srcName:"Open-Meteo, CMIP6 models", clim:"days_over_40", th:[5,15,30,60], unit:"days a year",
+ {k:"heat", short:"Extreme heat", name:"Days above 40°C", src:"real", srcName:"Open-Meteo, CMIP6 models", clim:"days_over_40", th:[5,15,30,60], unit:"days a year",
   legend:["Under 5","5–15","15–30","30–60","60+"], note:"Days a year above 40°C: harder outdoor work, hotter kilns and motors."},
- {k:"humid", name:"Dangerous humid-heat days", src:"real", srcName:"Open-Meteo, CMIP6 models", clim:"humid_heat_danger_days", th:[30,60,90,120], unit:"days a year",
+ {k:"humid", short:"Humid heat", name:"Dangerous humid-heat days", src:"real", srcName:"Open-Meteo, CMIP6 models", clim:"humid_heat_danger_days", th:[30,60,90,120], unit:"days a year",
   legend:["Under 30","30–60","60–90","90–120","120+"], note:"Days when heat and humidity together reach the US weather service’s “Danger” level (heat index 39.4°C or more): unsafe for heavy outdoor work without breaks.",
   caution:"Treat the 2040 figure with caution: only two models supply humidity, and they show a much larger rise than their own temperature trend suggests."},
- {k:"rain", name:"Wettest day of the year", src:"real", srcName:"Open-Meteo, CMIP6 models", clim:"max_1day_rain", th:[40,50,60,80], unit:"mm",
+ {k:"rain", short:"Heavy rain", name:"Wettest day of the year", src:"real", srcName:"Open-Meteo, CMIP6 models", clim:"max_1day_rain", th:[40,50,60,80], unit:"mm",
   legend:["Under 40 mm","40–50","50–60","60–80","80+ mm"], note:"Average rainfall on the wettest day of each year: a guide to how hard it can pour. Heavy downpours flood quarries, soak raw materials and block roads and rail.",
   caution:"Models average rain over large areas, so real local downpours are heavier than these figures. Use them to compare plants and spot trends, not as forecasts."},
- {k:"cyc", name:"Cyclones within 100 km", src:"real", srcName:"NOAA IBTrACS", th:[1,3,6,10], unit:"storms since 1980",
+ {k:"cyc", short:"Cyclones", name:"Cyclones within 100 km", src:"real", srcName:"NOAA IBTrACS", th:[1,3,6,10], unit:"storms since 1980",
   todayVal:p=>p.cyclones?.value ?? null, y2040:null,
   legend:["None","1–2","3–5","6–9","10+"], note:"Storms of at least 34 knots passing within 100 km since 1980. Historical only: there is no reliable free projection of how cyclones near each plant will change by 2040."},
 ];
@@ -385,25 +441,20 @@ HAZ.forEach(h => { if (h.clim) { h.today = p => { const v=cv(p,h.clim,"baseline"
 /* ---------- headline answers ---------- */
 (function answers(){
   const direct = P.filter(p => p.water?.today?.cat === 4 && !/desalinated/i.test(p.water_source));
-  const knock = P.filter(p => direct.some(d => d.id === p.supplied_by) && !direct.includes(p));
   const dRev = direct.reduce((s,p)=>s+p.revenue_cr,0);
   const per100 = totCO2*1000*100/1e7, ccts = totCO2*0.07*1000*800/1e7;
-  const kilnFed = P.filter(p => p.supplied_by), fedRev = kilnFed.reduce((s,p)=>s+p.revenue_cr,0);
-  const rising = P.filter(p => (p.water?.bau2050?.cat ?? -1) >= 3 && (p.water?.bau2050?.cat ?? -1) > (p.water?.bau2030?.cat ?? 9));
   document.getElementById("answers").innerHTML = `
-   <a class="answer" href="#physical"><span class="kind">Physical risk: harm from the climate itself</span>
+   <a class="answer" href="#physical"><span class="kind">Physical risk</span>
      <div class="fig">${Math.round(dRev/totRev*100)}%<span> of revenue</span></div>
-     <h2>sits in extremely water-stressed areas</h2>
-     <p>${direct.map(p=>p.short).join(" and ")} draw fresh water where over 80% of supply is already used (₹${fmt(dRev)} cr). ${knock.map(p=>`${p.short} adds ₹${fmt(p.revenue_cr)} cr through its clinker from ${byId[p.supplied_by].short}.`).join(" ")}${rising.length?` By 2050, ${rising.map(p=>p.short).join(" and ")} ${rising.length>1?"rise":"rises"} to high water stress too.`:""}</p>
-     <p class="also">Knock-on effect: two kilns supply three grinding units worth ₹${fmt(fedRev)} cr, so a shutdown at Chittorgarh or Baloda Bazar reaches further than the plant itself.</p>
-     <span class="src">${badge("real","WRI Aqueduct 4.0 and plant data")}</span>
+     <h2>comes from plants drawing fresh water in extremely water-stressed areas</h2>
+     <p>${direct.map(p=>p.short).join(" and ")} draw groundwater where over 80% of local supply is already used.</p>
+     <span class="src">${badge("real","WRI Aqueduct 4.0")}</span>
      <span class="go">See physical risk</span></a>
-   <a class="answer" href="#carbon"><span class="kind">Transition risk: the cost of the shift to a low-carbon economy</span>
+   <a class="answer" href="#carbon"><span class="kind">Transition risk</span>
      <div class="fig">₹${fmt(per100)}<span> cr a year</span></div>
      <h2>for every ₹100 a tonne of carbon price</h2>
-     <p>If all ${fmt(totCO2/1000,1)} Mt of direct CO₂ were priced, each ₹100 a tonne costs ${(per100/totRev*100).toFixed(1)}% of revenue.</p>
-     <p class="also">Under India’s carbon scheme today, missing a 7% target would cost about ₹${fmt(ccts)} cr a year at ₹800 a tonne.</p>
-     <span class="src">${badge("derived","Calculated from plant data")} ${badge("assumption","Target and price")}</span>
+     <p>At an assumed ₹800 a tonne, missing a 7% carbon target would cost about ₹${fmt(ccts)} cr a year.</p>
+     <span class="src">${badge("derived","Calculated")} ${badge("assumption","Price and target")}</span>
      <span class="go">See transition risk</span></a>`;
 })();
 
@@ -437,7 +488,7 @@ function drawMap(){
   document.getElementById("legend").innerHTML = h.legend.map((l,i)=>`<span><i style="background:var(--s${i})"></i>${l}</span>`).join("") + `<span><i style="background:var(--sna)"></i>Not available</span>`;
   const missing = P.every(p => catFor(h,p)?.cat == null);
   drawExpo(h, missing);
-  document.getElementById("hznote").innerHTML = `${h.note} ${h.caution?`<span class="caution">${h.caution}</span>`:""} ${badge(h.src, h.srcName)}` + (missing ? ` <strong>Climate-model values have not been loaded into this build yet.</strong>` : "");
+  const hn = document.getElementById("hznote"); if (hn) hn.innerHTML = `${h.note} ${h.caution?`<span class="caution">${h.caution}</span>`:""} ${badge(h.src, h.srcName)}` + (missing ? ` <strong>Climate-model values have not been loaded into this build yet.</strong>` : "");
   document.querySelectorAll(".seg button").forEach(b => { b.setAttribute("aria-pressed", b.dataset.p===state.period); b.disabled = b.dataset.p==="2040" && !h.y2040; });
 }
 
@@ -460,23 +511,66 @@ function drawExpo(h, missing){
 function dot(c){ const t = c?.text ?? "Not available";
   return `<span class="dot ${c?.cat==null?"na":""}" style="${c?.cat==null?"":`background:var(--s${c.cat})`}" title="${t}" role="img" aria-label="${t}"></span>`; }
 function pair(a,b){ return `<span class="dots">${dot(a)}<span class="arrow">→</span>${dot(b)}</span>`; }
+function shareHigh(h, period){
+  const f = period==="2040" ? h.y2040 : h.today; if (!f) return null;
+  let any=false, rev=0;
+  P.forEach(p => { const c=f(p); if (c?.cat!=null) any=true; if ((c?.cat ?? -1) >= 3) rev += p.revenue_cr; });
+  return any ? rev/totRev : null;
+}
+const pct = v => v==null ? "–" : `${Math.round(v*100)}%`;
+function drawRank(){
+  const rows = HAZ.map(h => ({h, a:shareHigh(h,"today"), b:shareHigh(h,"2040")}))
+    .sort((x,y) => Math.max(y.a??0,y.b??0) - Math.max(x.a??0,x.b??0));
+  const el = document.getElementById("rank");
+  el.innerHTML = rows.map(r => `<button type="button" class="rk ${state.hz===r.h.k?"on":""}" data-k="${r.h.k}" aria-pressed="${state.hz===r.h.k}">
+    <span class="rk-name">${r.h.short}${r.h.caution?`<span class="tag" title="${r.h.caution}">Low confidence</span>`:""}</span>
+    <span class="rk-row"><span>Today</span><span class="bar"><b style="width:${(r.a??0)*100}%"></b></span><span class="rk-v">${pct(r.a)}</span></span>
+    ${r.h.y2040 ? `<span class="rk-row"><span>2040</span><span class="bar"><b class="f" style="width:${(r.b??0)*100}%"></b></span><span class="rk-v">${pct(r.b)}</span></span>`
+                : `<span class="rk-row"><span>2040</span><span class="sub">No projection available</span><span></span></span>`}
+  </button>`).join("");
+  el.querySelectorAll(".rk").forEach(b => b.onclick = () => { state.hz = b.dataset.k; hzSel.value = state.hz;
+    if (!HAZ.find(h=>h.k===state.hz).y2040) state.period="today"; render(); document.getElementById("map").scrollIntoView({behavior:"smooth", block:"center"}); });
+}
+function dot(c){ const t = c?.text ?? "Not available";
+  return `<span class="dot ${c?.cat==null?"na":""}" style="${c?.cat==null?"":`background:var(--s${c.cat})`}" title="${t}" role="img" aria-label="${t}"></span>`; }
+function pair(a,b){ return `<span class="dots">${dot(a)}<span class="arrow">→</span>${dot(b)}</span>`; }
+function plantRisks(p){
+  const now = HAZ.map(h => ({h, c:h.today(p)}));
+  const fut = HAZ.map(h => ({h, c:(h.y2040 ? h.y2040(p) : h.today(p))}));
+  const hiNow = now.filter(x => (x.c?.cat ?? -1) >= 3), hiFut = fut.filter(x => (x.c?.cat ?? -1) >= 3);
+  const top = Math.max(...now.map(x => x.c?.cat ?? -1));
+  const main = now.filter(x => (x.c?.cat ?? -1) === top && top >= 2);
+  return {hiNow, hiFut, main, top};
+}
 function drawTable(){
-  const H = k => HAZ.find(h=>h.k===k);
-  const fut = (h,p) => h.y2040 ? h.y2040(p) : null;
-  const rows = P.map(p => { const w=H("water"), rf=H("river"), ht=H("heat"), hu=H("humid"), cy=H("cyc");
-    const wb = p.water?.bau2030, we = p.water?.bau2050;
-    return `<tr data-id="${p.id}" class="${state.sel===p.id?"sel":""}"><td><span class="pname">${p.short}</span><span class="sub">${p.id}, ${p.type==="Integrated"?"kiln plant":"grinding unit"}, ${p.state}</span></td>
-     <td class="num">${fmt(p.revenue_cr)}</td>
-     <td>${dot(w.today(p))}</td>
-     <td>${pair(wb?{cat:wb.cat,text:"2030: "+CAT5[wb.cat]}:null, we?{cat:we.cat,text:"2050: "+CAT5[we.cat]}:null)}</td>
-     <td>${dot(rf.today(p))}</td>
-     <td>${pair(ht.today(p), fut(ht,p))}</td>
-     <td>${pair(hu.today(p), fut(hu,p))}</td>
-     <td>${dot(cy.today(p))}</td>
-     <td class="num">${p.co2_per_t_cement.toFixed(2)}</td></tr>`; }).join("");
+  const rows = P.map(p => ({p, r:plantRisks(p)})).sort((a,b) => (b.r.hiNow.length-a.r.hiNow.length) || (b.p.revenue_cr-a.p.revenue_cr));
   const t = document.getElementById("tbl");
-  t.innerHTML = `<thead><tr><th>Plant</th><th class="num">Revenue ₹ cr</th><th>Water stress today</th><th>Water stress 2030 → 2050</th><th>River flood (area)</th><th>Days above 40°C, today → 2040</th><th>Humid-heat days, today → 2040</th><th>Cyclones since 1980</th><th class="num">t CO₂ per t cement</th></tr></thead><tbody>${rows}</tbody>`;
+  t.innerHTML = `<thead><tr><th>Plant</th><th class="num">Revenue ₹ cr</th><th class="num">High risks today</th><th class="num">Around 2040</th><th>Biggest risk today</th></tr></thead><tbody>${
+    rows.map(({p,r}) => `<tr data-id="${p.id}" class="${state.sel===p.id?"sel":""}">
+      <td><span class="pname">${p.short}</span><span class="sub">${p.type==="Integrated"?"Kiln plant":"Grinding unit"}, ${p.state}</span></td>
+      <td class="num">${fmt(p.revenue_cr)}</td>
+      <td class="num" title="${r.hiNow.map(x=>x.h.short).join(", ")}">${r.hiNow.length}</td>
+      <td class="num" title="${r.hiFut.map(x=>x.h.short).join(", ")}">${r.hiFut.length}</td>
+      <td>${r.main.length ? `<span class="mainrisk">${dot(r.main[0].c)} ${r.main.slice(0,2).map(x=>x.h.short).join(", ")}${r.main.length>2?` +${r.main.length-2}`:""}</span>` : `<span class="sub">None above medium</span>`}</td></tr>`).join("")}</tbody>`;
   t.querySelectorAll("tbody tr").forEach(tr => tr.onclick = () => openPlant(tr.dataset.id));
+}
+function drawMatrix(){
+  const t = document.getElementById("pmatrix");
+  t.innerHTML = `<thead><tr><th>Plant</th>${HAZ.map(h=>`<th>${h.short}${h.y2040?`<span class="sub">today → 2040</span>`:`<span class="sub">today</span>`}</th>`).join("")}</tr></thead><tbody>${
+    P.map(p => `<tr data-id="${p.id}"><td><span class="pname">${p.short}</span></td>${HAZ.map(h => `<td>${h.y2040 ? pair(h.today(p), h.y2040(p)) : dot(h.today(p))}</td>`).join("")}</tr>`).join("")}</tbody>`;
+  t.querySelectorAll("tbody tr").forEach(tr => tr.onclick = () => openPlant(tr.dataset.id));
+}
+function drawNext(){
+  const water = P.filter(p => p.water?.today?.cat === 4 && !/desalinated/i.test(p.water_source));
+  const hot = P.filter(p => (cv(p,"days_over_40","baseline") ?? 0) >= 30);
+  const sum = a => a.reduce((s,p)=>s+p.revenue_cr,0);
+  const ccts = totCO2*0.07*1000*800/1e7;
+  const steps = [
+    {kind:"Physical risk", t:"Secure water supply", p:`${water.map(p=>p.short).join(" and ")} draw groundwater where over 80% of local supply is already used.`, a:`₹${fmt(sum(water))} cr`, u:"revenue at these plants"},
+    {kind:"Physical risk", t:"Plan for extreme heat", p:`${hot.length} plants already have 30 or more days above 40°C a year, which affects workers and equipment.`, a:`₹${fmt(sum(hot))} cr`, u:"revenue at these plants"},
+    {kind:"Transition risk", t:"Confirm the carbon target", p:"Carbon costs here use an assumed 7% cut and ₹800 a tonne until Nimbus’s official target is known.", a:`About ₹${fmt(ccts)} cr`, u:"a year at stake (assumed)"}
+  ];
+  document.getElementById("next").innerHTML = steps.map(x => `<div class="step"><span class="kind">${x.kind}</span><h4>${x.t}</h4><p>${x.p}</p><div class="amt">${x.a} <span>${x.u}</span></div></div>`).join("");
 }
 
 /* ---------- physical ---------- */
@@ -518,7 +612,7 @@ function drawCarbon(){
     <p><strong>2040 stress test: every tonne priced.</strong> ${fmt(e2040/1000,1)} Mt of CO₂ at ₹${fmt(p2)} a tonne is ${(c2/totRev*100).toFixed(1)}% of FY2025-26 revenue. Not a forecast: it shows how sensitive the business is if India’s scheme tightens towards full carbon pricing. ${badge("assumption","Uses your assumptions")}</p>`;
   const mx = Math.max(...P.map(p=>p.co2_per_t_cement));
   document.getElementById("intens").innerHTML = [...P].sort((a,b)=>b.co2_per_t_cement-a.co2_per_t_cement).map(p =>
-    `<span>${p.short}<span class="sub">${p.type==="Integrated"?"kiln plant":"grinding unit"}</span></span><div class="bar"><b style="width:${p.co2_per_t_cement/mx*100}%;background:var(--accent)"></b></div><span>${p.co2_per_t_cement.toFixed(3)}</span>`).join("");
+    `<span>${p.short}<span class="sub">${p.type==="Integrated"?"kiln plant":"grinding unit"}</span></span><div class="bar"><b style="width:${p.co2_per_t_cement/mx*100}%;background:linear-gradient(90deg,#12A26E,#14A3A0)"></b></div><span>${p.co2_per_t_cement.toFixed(3)}</span>`).join("");
 }
 ["r","p1","p2","imp"].forEach(id => document.getElementById(id).oninput = drawCarbon);
 
@@ -587,8 +681,8 @@ function route(){ const v = VIEWS.includes(location.hash.slice(1)) ? location.ha
   VIEWS.forEach(x => document.getElementById("v-"+x).classList.toggle("on", x===v));
   document.querySelectorAll("nav.tabs a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href")==="#"+v ? "page" : "false")); }
 window.addEventListener("hashchange", route);
-function render(){ drawMap(); drawTable(); }
-route(); render(); drawPhysical(); drawCarbon();
+function render(){ drawMap(); drawTable(); drawRank(); }
+route(); render(); drawPhysical(); drawMatrix(); drawNext(); drawCarbon();
 </script>
 </body>
 </html>
